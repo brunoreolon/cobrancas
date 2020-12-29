@@ -1,6 +1,7 @@
 package com.algaworks.cobranca.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,14 @@ public class TituloService {
 	
 	public List<Titulo> listarTodos(){
 		return this.tituloRepository.findAll();
+	}
+
+	public Optional<Titulo> pesquisarId(Long codigo) {
+		return this.tituloRepository.findById(codigo);
+	}
+
+	public Titulo atualizar(Titulo titulo) {
+		return this.tituloRepository.save(titulo);
 	}
 	
 }

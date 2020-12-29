@@ -10,17 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/style.css" />
 </head>
 <body>
-	<!--<header layout:include="Cabecalho"></header>-->
-
-	<nav class="navbar navbar-inverse navbar-static-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#"> <img alt="AlgaWorks"
-					src="/images/logo-algaworks.png" />
-				</a>
-			</div>
-		</div>
-	</nav>
+	<header layout:replace="Cabecalho"></header>
 
 	<section layout:fragment="conteudo">
 		<p>Conteúdo principal</p>
