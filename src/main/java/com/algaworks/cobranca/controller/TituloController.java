@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.cobranca.model.StatusTitulo;
 import com.algaworks.cobranca.model.Titulo;
+import com.algaworks.cobranca.repository.filter.TituloFilter;
 import com.algaworks.cobranca.service.TituloService;
 
 @Controller
@@ -42,9 +44,14 @@ public class TituloController {
 			return CADASTRO_VIEW;
 		}
 		
+		String mensagem = "Título salvo com sucesso!";
+		if (!(titulo.getCodigo() == null)) {
+			mensagem = "Título editado com sucesso!";
+		}
+		
 		try {
 			this.tituloService.salvar(titulo);
-			attributes.addFlashAttribute("mensagem", "Título salvo com sucesso!");
+			attributes.addFlashAttribute("mensagem", mensagem);
 			return "redirect:/titulos/novo";
 		}catch (DataIntegrityViolationException e) {
 			errors.rejectValue("dataVencimento", null, e.getMessage());
@@ -53,8 +60,8 @@ public class TituloController {
 	}
 	
 	@RequestMapping
-	public ModelAndView pesquisar() {
-		List<Titulo> titulos = tituloService.listarTodos();
+	public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro) {
+		List<Titulo> titulos = tituloService.filtrar(filtro);
 		
 		ModelAndView view = new ModelAndView("PesquisaTitulos");
 		view.addObject("titulos", titulos);
@@ -77,6 +84,11 @@ public class TituloController {
 		attributes.addFlashAttribute("mensagem", "Título excluido com sucesso!");
 		
 		return "redirect:/titulos";
+	}
+	
+	@RequestMapping(value = "/{codigo}/receber", method = RequestMethod.PUT)
+	public @ResponseBody String receber(@PathVariable Long codigo) {
+		return this.tituloService.receber(codigo);
 	}
 	
 	@ModelAttribute("statusTitulo")
