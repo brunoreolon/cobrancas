@@ -9,7 +9,9 @@
 
 <section layout:fragment="conteudo">
 	<form class="form-horizontal" method="post" action="/titulos" th:object="${titulo}">
-		<div layout:insert="Mensagem"></div>
+		<div layout:insert="MensagemGeral"></div>
+		<div layout:insert="MensagemErro"></div>
+		
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="clearfix">
@@ -33,7 +35,7 @@
 					<label for="dataVencimento" class="col-sm-2 control-label">Data
 						de vencimento</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="dataVencimento"
+						<input type="text" class="form-control ik-datepicker" id="dataVencimento"
 							th:field="*{dataVencimento}" />
 					</div>
 				</div>
@@ -41,7 +43,7 @@
 				<div class="form-group" th:classappend="${#fields.hasErrors('valor')} ? has-error">
 					<label for="valor" class="col-sm-2 control-label">Valor</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="valor" th:field="*{valor}" />
+						<input type="text" class="form-control js-currency"  id="valor" th:field="*{valor}" />
 					</div>
 				</div>
 				

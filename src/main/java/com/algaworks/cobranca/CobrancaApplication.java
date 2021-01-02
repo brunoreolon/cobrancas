@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 
-import nz.net.ultraq.thymeleaf.LayoutDialect;
-
 @SpringBootApplication
 public class CobrancaApplication {
 
