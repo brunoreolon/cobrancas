@@ -3,12 +3,12 @@ package com.algaworks.cobranca.controller;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,8 +39,8 @@ public class TituloController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String salvar(@Valid Titulo titulo, Errors errors, RedirectAttributes attributes) {
-		if (errors.hasErrors()) {
+	public String salvar(@Validated Titulo titulo, BindingResult result, RedirectAttributes attributes) {
+		if (result.hasErrors()) {
 			return CADASTRO_VIEW;
 		}
 		
@@ -54,7 +54,7 @@ public class TituloController {
 			attributes.addFlashAttribute("mensagem", mensagem);
 			return "redirect:/titulos/novo";
 		}catch (DataIntegrityViolationException e) {
-			errors.rejectValue("dataVencimento", null, e.getMessage());
+			result.rejectValue("dataVencimento", null, e.getMessage());
 			return CADASTRO_VIEW;
 		}
 	}

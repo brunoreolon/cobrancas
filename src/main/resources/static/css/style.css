@@ -1,13 +1,16 @@
+@media (min-width: 768px) {
+
+	.panel-default {
+		margin: 0 10px;
+	}
+	
+	.alert {
+		margin: 0 10px 20px 10px;
+	}
+}
+
 .navbar-brand {
 	padding-top: 12px;
-}
-
-.panel-default {
-	margin: 0 10px;
-}
-
-.alert {
-	margin: 0 10px 20px 10px;
 }
 
 .on-link-panel {
